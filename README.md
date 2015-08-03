@@ -1,4 +1,4 @@
-# user-startup
+# user-startup [![Build Status](https://travis-ci.org/typicode/user-startup.svg)](https://travis-ci.org/typicode/user-startup)
 
 > Automatically run commands when the user logs in. Used in [hotel](https://github.com/typicode/hotel).
 
