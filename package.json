@@ -1,7 +1,7 @@
 {
   "name": "user-startup",
   "version": "0.1.0",
-  "description": "Automatically run commands when the user logs on (cross-platform)",
+  "description": "Automatically run commands when the user logs in (cross-platform)",
   "main": "lib/index.js",
   "scripts": {
     "prepublish": "npm run build",
