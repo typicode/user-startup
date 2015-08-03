@@ -1,0 +1,37 @@
+{
+  "name": "user-startup",
+  "version": "0.1.0",
+  "description": "Automatically run commands when the user logs on (cross-platform)",
+  "main": "lib/index.js",
+  "scripts": {
+    "prepublish": "npm run build",
+    "build": "babel src --out-dir lib",
+    "test": "babel-node test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/typicode/user-startup.git"
+  },
+  "keywords": [
+    "startup",
+    "autostart",
+    "launchctl",
+    "daemon",
+    "osx",
+    "linux",
+    "windows"
+  ],
+  "author": "Typicode <typicode@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/typicode/user-startup/issues"
+  },
+  "homepage": "https://github.com/typicode/user-startup",
+  "devDependencies": {
+    "babel": "^5.8.3"
+  },
+  "dependencies": {
+    "mkdirp": "^0.5.1",
+    "untildify": "^2.1.0"
+  }
+}
