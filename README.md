@@ -28,7 +28,7 @@ startup.remove('app')
 
 `create(id, cmd, args, out)`
 
-Creates a startup script and spawn process.
+Creates a startup script and spawns process.
 
 `remove(id)`
 
