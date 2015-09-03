@@ -3,7 +3,7 @@ let cp = require('child_process')
 let mkdirp = require('mkdirp')
 let untildify = require('untildify')
 
-export let dir = untildify(`~/Library/LaunchAgents`)
+export let dir = untildify('~/Library/LaunchAgents')
 
 export function getFile (name) {
   return `${dir}/${name}.plist`
