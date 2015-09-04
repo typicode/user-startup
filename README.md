@@ -20,9 +20,14 @@ var nodePath = process.execPath
 var args = ['/some/path/app.js']
 var out = '/some/path/out.log'
 
-startup.create('app', nodePath, args, out)
-startup.remove('app')
+// Create startup script
+startup.create('my-script', nodePath, args, out)
+
+// Remove startup script
+startup.remove('my-script')
 ```
+
+Note: you should check that root isn't running this code to avoid startup scripts being created in root's home directory. Use [sudo-block](https://github.com/sindresorhus/sudo-block), [is-root](https://github.com/sindresorhus/is-root) or similar modules.
 
 ## API
 
