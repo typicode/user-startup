@@ -51,7 +51,7 @@ Returns startup script path.
 
 * On OS X, it creates a `plist` file in  `~/Library/LaunchAgents`
 * On Linux, it creates a `desktop` file in `~/.config/autostart`
-* On Windows, it creates `vbs` script in `AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Startup`
+* On Windows, it creates a `vbs` script in `AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Startup`
 
 ## License
 
