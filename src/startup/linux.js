@@ -19,7 +19,7 @@ export function getFile (name) {
   return `${dir}/${name}.desktop`
 }
 
-export function create (name, cmd, args, out) {
+export function add (name, cmd, args, out) {
   let file = getFile(name)
 
   let data = [
@@ -35,7 +35,11 @@ export function create (name, cmd, args, out) {
 
   mkdirp.sync(dir)
   fs.writeFileSync(file, data)
+  return file;
+}
 
+export function create (name, cmd, args, out) {
+  add(name, cmd, args, out)
   spawn(cmd, args, out)
 }
 

@@ -25,6 +25,9 @@ startup.remove('app')
 ```
 
 ## API
+`add(id, cmd, args, out)`
+
+Creates a startup script without spawning
 
 `create(id, cmd, args, out)`
 

@@ -9,7 +9,7 @@ export function getFile (name) {
   return `${dir}/${name}.plist`
 }
 
-export function create (name, cmd, args, out) {
+export function add (name, cmd, args, out) {
   let array = [cmd]
     .concat(args)
     .map(a => `    <string>${a}</string>`)
@@ -26,7 +26,7 @@ export function create (name, cmd, args, out) {
     `  <string>${name}</string>`,
     '  <key>ProgramArguments</key>',
     '  <array>',
-         array,
+    array,
     '  </array>',
     '  <key>RunAtLoad</key>',
     '  <true/>',
@@ -40,7 +40,11 @@ export function create (name, cmd, args, out) {
 
   mkdirp.sync(dir)
   fs.writeFileSync(file, data)
+  return file;
+}
 
+export function create (name, cmd, args, out) {
+  let file = add(name, cmd, args, out)
   cp.execSync(`launchctl load ${file}`)
 }
 
