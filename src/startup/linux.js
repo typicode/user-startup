@@ -7,7 +7,8 @@ export let dir = untildify('~/.config/autostart')
 
 function spawn (cmd, args, out) {
   let fd = fs.openSync(out, 'w')
-  cp.spawn(cmd, args, {
+  cp
+    .spawn(cmd, args, {
       stdio: ['ignore', fd, fd],
       detached: true
     })
@@ -35,7 +36,7 @@ export function add (name, cmd, args, out) {
 
   mkdirp.sync(dir)
   fs.writeFileSync(file, data)
-  return file;
+  return file
 }
 
 export function create (name, cmd, args, out) {

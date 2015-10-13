@@ -22,7 +22,7 @@ export function add (name, cmd, args, out) {
 
   mkdirp.sync(dir)
   fs.writeFileSync(file, data)
-  return file;
+  return file
 }
 
 export function create (name, cmd, args, out) {
