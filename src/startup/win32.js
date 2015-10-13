@@ -9,7 +9,7 @@ export function getFile (name) {
   return `${dir}\\${name}.vbs`
 }
 
-export function create (name, cmd, args, out) {
+export function add (name, cmd, args, out) {
   let file = getFile(name)
 
   let escapedCmd = `""${cmd}""`
@@ -22,6 +22,11 @@ export function create (name, cmd, args, out) {
 
   mkdirp.sync(dir)
   fs.writeFileSync(file, data)
+  return file;
+}
+
+export function create (name, cmd, args, out) {
+  let file = add(name, cmd, args, out)
 
   // Spawn vbscript
   cp.spawn('cmd', ['/c', file], {

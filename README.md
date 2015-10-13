@@ -30,6 +30,9 @@ startup.remove('my-script')
 Note: you should check that root isn't running this code to avoid startup scripts being created in root's home directory. Use [sudo-block](https://github.com/sindresorhus/sudo-block), [is-root](https://github.com/sindresorhus/is-root) or similar modules.
 
 ## API
+`add(id, cmd, args, out)`
+
+Creates a startup script without spawning
 
 `create(id, cmd, args, out)`
 
