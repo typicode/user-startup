@@ -20,7 +20,7 @@ var nodePath = process.execPath
 var args = ['/some/path/app.js']
 var out = '/some/path/out.log'
 
-// Create startup script
+// Create startup script and spawn process
 startup.create('my-script', nodePath, args, out)
 
 // Remove startup script
@@ -30,17 +30,18 @@ startup.remove('my-script')
 Note: you should check that root isn't running this code to avoid startup scripts being created in root's home directory. Use [sudo-block](https://github.com/sindresorhus/sudo-block), [is-root](https://github.com/sindresorhus/is-root) or similar modules.
 
 ## API
+
 `add(id, cmd, args, out)`
 
-Creates a startup script without spawning
+Creates startup script.
+
+`remove(id)`
+
+Removes startup script.
 
 `create(id, cmd, args, out)`
 
 Creates a startup script and spawns process.
-
-`remove(id)`
-
-Removes startup script but doesn't stop process.
 
 `dir`
 
