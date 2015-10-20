@@ -27,7 +27,7 @@ export function add (name, cmd, args, out) {
     '[Desktop Entry]',
     'Type=Application',
     'Vestion=1.0',
-    'Name=${name}',
+    `Name=${name}`,
     `Comment=${name} startup script`,
     `Exec=${cmd} ${args} > ${out}`,
     'StartupNotify=false',
