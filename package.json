@@ -16,6 +16,7 @@
     "startup",
     "autostart",
     "launchctl",
+    "plist",
     "daemon",
     "osx",
     "linux",
