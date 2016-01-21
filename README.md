@@ -14,20 +14,20 @@ npm install user-startup --save
 ## Example
 
 ```javascript
-var startup = require('user-startup')
+const startup = require('user-startup')
 
-var nodePath = process.execPath
-var args = ['/some/path/app.js']
-var out = '/some/path/out.log'
+const nodePath = process.execPath
+const args = ['/some/path/app.js']
+const out = '/some/path/out.log'
 
-// Create startup script and spawn process
+// Creates startup script and spawns process
 startup.create('my-script', nodePath, args, out)
 
-// Remove startup script
+// Removes startup script
 startup.remove('my-script')
 ```
 
-Note: you should check that root isn't running this code to avoid startup scripts being created in root's home directory. Use [sudo-block](https://github.com/sindresorhus/sudo-block), [is-root](https://github.com/sindresorhus/is-root) or similar modules.
+Note: you should check that root isn't running this code to avoid startup scripts being created in root's home directory. Use [sudo-block](https://github.com/sindresorhus/sudo-block) or [is-root](https://github.com/sindresorhus/is-root).
 
 ## API
 
