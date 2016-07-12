@@ -2,8 +2,8 @@
 
 > Automatically run commands when the user logs in. Used in [hotel](https://github.com/typicode/hotel) and [stop-server](https://github.com/typicode/stop-server).
 
+  * __No admin privileges required__
   * Cross-platform (OS X, Linux and Windows)
-  * No admin privileges required
 
 ## Install
 
@@ -35,13 +35,13 @@ Note: you should check that root isn't running this code to avoid startup script
 
 Creates startup script.
 
-`remove(id)`
-
-Removes startup script.
-
 `create(id, cmd, args, out)`
 
 Creates a startup script and spawns process.
+
+`remove(id)`
+
+Removes startup script.
 
 `dir`
 
