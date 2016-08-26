@@ -35,6 +35,6 @@
   },
   "dependencies": {
     "mkdirp": "^0.5.1",
-    "untildify": "^3.0.2"
+    "untildify": "^2.1.0"
   }
 }
