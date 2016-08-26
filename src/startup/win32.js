@@ -9,16 +9,22 @@ export function getFile (name) {
   return `${dir}\\${name}.vbs`
 }
 
-export function add (name, cmd, args, out) {
+export function add (name, cmd, args = [], out = null) {
   let file = getFile(name)
 
-  let escapedCmd = `""${cmd}""`
-  let escapedArgs = args.map(a => `""${a}""`).join(' ')
-  let escapedOut = `""${out}""`
+  let command = `""${cmd}""`
 
-  let command = `""${escapedCmd} ${escapedArgs} > ${escapedOut}""`
+  if (args.length) {
+    let escapedArgs = args.map(a => `""${a}""`).join(' ')
 
-  let data = `CreateObject("Wscript.Shell").Run "cmd /c ${command}", 0, true`
+    command += ` ${escapedArgs}`
+  }
+
+  if (out) {
+    command += ` > ""${out}""`
+  }
+
+  let data = `CreateObject("Wscript.Shell").Run "cmd /c ""${command}""", 0, true`
 
   mkdirp.sync(dir)
   fs.writeFileSync(file, data)

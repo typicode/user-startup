@@ -20,8 +20,18 @@ export function getFile (name) {
   return `${dir}/${name}.desktop`
 }
 
-export function add (name, cmd, args, out) {
+export function add (name, cmd, args = [], out = null) {
   let file = getFile(name)
+
+  let command = cmd
+
+  if (args.length) {
+    command += ` ${args.join(' ')}`
+  }
+
+  if (out) {
+    command += ` > ${out}`
+  }
 
   let data = [
     '[Desktop Entry]',
@@ -29,7 +39,7 @@ export function add (name, cmd, args, out) {
     'Vestion=1.0',
     `Name=${name}`,
     `Comment=${name} startup script`,
-    `Exec=${cmd} ${args} > ${out}`,
+    `Exec=${command}`,
     'StartupNotify=false',
     'Terminal=false'
   ].join('\n')

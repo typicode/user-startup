@@ -9,7 +9,7 @@ export function getFile (name) {
   return `${dir}/${name}.plist`
 }
 
-export function add (name, cmd, args, out) {
+export function add (name, cmd, args = [], out = null) {
   let array = [cmd]
     .concat(args)
     .map(a => `    <string>${a}</string>`)
@@ -17,7 +17,7 @@ export function add (name, cmd, args, out) {
 
   let file = getFile(name)
 
-  let data = [
+  let lines = [
     '<?xml version="1.0" encoding="UTF-8"?>',
     '<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">',
     '<plist version="1.0">',
@@ -29,14 +29,20 @@ export function add (name, cmd, args, out) {
     array,
     '  </array>',
     '  <key>RunAtLoad</key>',
-    '  <true/>',
-    '  <key>StandardOutPath</key>',
-    `  <string>${out}</string>`,
-    '  <key>StandardErrorPath</key>',
-    `  <string>${out}</string>`,
-    '</dict>',
-    '</plist>'
-  ].join('\n')
+    '  <true/>'
+  ]
+
+  if (out) {
+    lines.push('  <key>StandardOutPath</key>',
+        `  <string>${out}</string>`,
+        '  <key>StandardErrorPath</key>',
+        `  <string>${out}</string>`
+      )
+  }
+
+  lines.push('</dict>', '</plist>')
+
+  let data = lines.join('\n')
 
   mkdirp.sync(dir)
   fs.writeFileSync(file, data)
