@@ -1,27 +1,29 @@
-let os = require('os')
-let fs = require('fs')
-let untildify = require('untildify')
-let assert = require('assert')
-let startup = require('../src')
+const os = require('os')
+const fs = require('fs')
+const untildify = require('untildify')
+const assert = require('assert')
+const startup = require('../src')
 
-if (os.platform() !== 'linux') process.exit()
+if (os.platform() === 'win32') process.exit()
 
-let tmp = os.tmpdir()
-let id = 'test'
-let cmd = 'touch'
-let testFile = `${tmp}/foo`
-let log = `${tmp}/foo.log`
-let startupDir = untildify(`~/.config/autostart`)
-let startupFile = `${startupDir}/${id}.desktop`
+const tmp = os.tmpdir()
+const id = 'test'
+const cmd = 'touch'
+const testFile = `${tmp}/foo`
+const log = `${tmp}/foo.log`
+const startupDir = untildify(`~/.config/autostart`)
+const startupFile = `${startupDir}/${id}.desktop`
 
-for (let f of [testFile, startupFile, log]) {
+const files = [testFile, startupFile, log]
+
+files.forEach((f) => {
   fs.existsSync(f) && fs.unlinkSync(f)
-}
+})
 
-assert(startup.dir, startupDir)
+assert.equal(startup.dir, startupDir)
 startup.create(id, cmd, [testFile], log)
 
-setTimeout(function () {
+setTimeout(() => {
   assert(fs.existsSync(startupFile))
   assert(fs.existsSync(testFile))
   assert(fs.existsSync(log))

@@ -31,11 +31,11 @@ Note: you should check that root isn't running this code to avoid startup script
 
 ## API
 
-`add(id, cmd, args, out)`
+`add(id, cmd[, args][, out])`
 
 Creates startup script.
 
-`create(id, cmd, args, out)`
+`create(id, cmd[, args][, out])`
 
 Creates a startup script and spawns process.
 

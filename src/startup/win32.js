@@ -1,22 +1,29 @@
-let fs = require('fs')
-let cp = require('child_process')
-let mkdirp = require('mkdirp')
-let untildify = require('untildify')
+const fs = require('fs')
+const cp = require('child_process')
+const mkdirp = require('mkdirp')
+const untildify = require('untildify')
 
-export let dir = untildify('~\\AppData\\Roaming\\Microsoft\\Windows\\Start Menu\\Programs\\Startup')
+const dir = untildify('~\\AppData\\Roaming\\Microsoft\\Windows\\Start Menu\\Programs\\Startup')
 
-export function getFile (name) {
+module.exports = {
+  dir,
+  getFile,
+  add,
+  create,
+  remove
+}
+
+function getFile (name) {
   return `${dir}\\${name}.vbs`
 }
 
-export function add (name, cmd, args = [], out = null) {
-  let file = getFile(name)
+function add (name, cmd, args = [], out) {
+  const file = getFile(name)
 
   let command = `""${cmd}""`
 
   if (args.length) {
-    let escapedArgs = args.map(a => `""${a}""`).join(' ')
-
+    const escapedArgs = args.map(a => `""${a}""`).join(' ')
     command += ` ${escapedArgs}`
   }
 
@@ -24,15 +31,15 @@ export function add (name, cmd, args = [], out = null) {
     command += ` > ""${out}""`
   }
 
-  let data = `CreateObject("Wscript.Shell").Run "cmd /c ""${command}""", 0, true`
+  const data = `CreateObject("Wscript.Shell").Run "cmd /c ""${command}""", 0, true`
 
   mkdirp.sync(dir)
   fs.writeFileSync(file, data)
   return file
 }
 
-export function create (name, cmd, args, out) {
-  let file = add(name, cmd, args, out)
+function create (name, cmd, args, out) {
+  const file = add(name, cmd, args, out)
 
   // Spawn vbscript
   cp.spawn('cmd', ['/c', file], {
@@ -41,7 +48,7 @@ export function create (name, cmd, args, out) {
   }).unref()
 }
 
-export function remove (name) {
-  let file = getFile(name)
+function remove (name) {
+  const file = getFile(name)
   if (fs.existsSync(file)) fs.unlinkSync(file)
 }

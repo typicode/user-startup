@@ -1,23 +1,31 @@
-let fs = require('fs')
-let cp = require('child_process')
-let mkdirp = require('mkdirp')
-let untildify = require('untildify')
+const fs = require('fs')
+const cp = require('child_process')
+const mkdirp = require('mkdirp')
+const untildify = require('untildify')
 
-export let dir = untildify('~/Library/LaunchAgents')
+const dir = untildify('~/Library/LaunchAgents')
 
-export function getFile (name) {
+module.exports = {
+  dir,
+  getFile,
+  add,
+  create,
+  remove
+}
+
+function getFile (name) {
   return `${dir}/${name}.plist`
 }
 
-export function add (name, cmd, args = [], out = null) {
-  let array = [cmd]
+function add (name, cmd, args = [], out) {
+  const array = [cmd]
     .concat(args)
     .map(a => `    <string>${a}</string>`)
     .join('\n')
 
-  let file = getFile(name)
+  const file = getFile(name)
 
-  let lines = [
+  const lines = [
     '<?xml version="1.0" encoding="UTF-8"?>',
     '<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">',
     '<plist version="1.0">',
@@ -42,20 +50,20 @@ export function add (name, cmd, args = [], out = null) {
 
   lines.push('</dict>', '</plist>')
 
-  let data = lines.join('\n')
+  const data = lines.join('\n')
 
   mkdirp.sync(dir)
   fs.writeFileSync(file, data)
   return file
 }
 
-export function create (name, cmd, args, out) {
-  let file = add(name, cmd, args, out)
+function create (name, cmd, args = [], out) {
+  const file = add(name, cmd, args, out)
   cp.execSync(`launchctl load ${file}`)
 }
 
-export function remove (name) {
-  let file = getFile(name)
+function remove (name) {
+  const file = getFile(name)
   if (fs.existsSync(file)) fs.unlinkSync(file)
   try {
     cp.execSync(`launchctl remove ${name}`)

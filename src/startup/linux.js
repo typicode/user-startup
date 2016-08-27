@@ -1,27 +1,40 @@
-let fs = require('fs')
-let cp = require('child_process')
-let mkdirp = require('mkdirp')
-let untildify = require('untildify')
+const fs = require('fs')
+const cp = require('child_process')
+const mkdirp = require('mkdirp')
+const untildify = require('untildify')
 
-export let dir = untildify('~/.config/autostart')
+const dir = untildify('~/.config/autostart')
 
-function spawn (cmd, args, out) {
-  let fd = fs.openSync(out, 'w')
+module.exports = {
+  dir,
+  getFile,
+  add,
+  create,
+  remove
+}
+
+function spawn (cmd, args = [], out) {
+  const opts = {
+    detached: true
+  }
+
+  if (out) {
+    const fd = fs.openSync(out, 'w')
+    opts.stdio = ['ignore', fd, fd]
+  }
+
   cp
-    .spawn(cmd, args, {
-      stdio: ['ignore', fd, fd],
-      detached: true
-    })
+    .spawn(cmd, args, opts)
     .on('error', console.log)
     .unref()
 }
 
-export function getFile (name) {
+function getFile (name) {
   return `${dir}/${name}.desktop`
 }
 
-export function add (name, cmd, args = [], out = null) {
-  let file = getFile(name)
+function add (name, cmd, args = [], out) {
+  const file = getFile(name)
 
   let command = cmd
 
@@ -33,7 +46,7 @@ export function add (name, cmd, args = [], out = null) {
     command += ` > ${out}`
   }
 
-  let data = [
+  const data = [
     '[Desktop Entry]',
     'Type=Application',
     'Vestion=1.0',
@@ -49,12 +62,12 @@ export function add (name, cmd, args = [], out = null) {
   return file
 }
 
-export function create (name, cmd, args, out) {
+function create (name, cmd, args = [], out) {
   add(name, cmd, args, out)
   spawn(cmd, args, out)
 }
 
-export function remove (name) {
-  let file = getFile(name)
+function remove (name) {
+  const file = getFile(name)
   if (fs.existsSync(file)) fs.unlinkSync(file)
 }
