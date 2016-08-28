@@ -11,8 +11,16 @@ const id = 'test'
 const cmd = 'touch'
 const testFile = `${tmp}/foo`
 const log = `${tmp}/foo.log`
-const startupDir = untildify(`~/.config/autostart`)
-const startupFile = `${startupDir}/${id}.desktop`
+
+let startupDir
+let startupFile
+if (os.platform() === 'linux') {
+  startupDir = untildify(`~/.config/autostart`)
+  startupFile = `${startupDir}/${id}.desktop`
+} else {
+  startupDir = untildify(`~/Library/LaunchAgents`)
+  startupFile = `${startupDir}/${id}.plist`
+}
 
 const files = [testFile, startupFile, log]
 
