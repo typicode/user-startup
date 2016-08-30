@@ -31,7 +31,7 @@ Note: you should check that root isn't running this code to avoid startup script
 
 ## API
 
-`add(id, cmd[, args[, out]])`
+__add(id, cmd[, args[, out]])__
 
 * `id <String>` id
 * `cmd <String>` command
@@ -40,19 +40,19 @@ Note: you should check that root isn't running this code to avoid startup script
 
 Creates startup script.
 
-`create(id, cmd[, args[, out]])`
+__create(id, cmd[, args[, out]])__
 
 Creates a startup script __and__ spawns process.
 
-`remove(id)`
+__remove(id)__
 
 Removes startup script.
 
-`dir`
+__dir__
 
 Returns startup script directory.
 
-`getFile(id)`
+__getFile(id)__
 
 Returns startup script path.
 
