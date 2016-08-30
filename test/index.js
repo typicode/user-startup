@@ -4,6 +4,7 @@ const untildify = require('untildify')
 const assert = require('assert')
 const startup = require('../src')
 
+
 if (os.platform() === 'win32') process.exit()
 
 const tmp = os.tmpdir()
@@ -22,11 +23,15 @@ if (os.platform() === 'linux') {
   startupFile = `${startupDir}/${id}.plist`
 }
 
-const files = [testFile, startupFile, log]
+function clean () {
+  const files = [testFile, startupFile, log]
 
-files.forEach((f) => {
-  fs.existsSync(f) && fs.unlinkSync(f)
-})
+  files.forEach((f) => {
+    fs.existsSync(f) && fs.unlinkSync(f)
+  })
+}
+
+clean()
 
 assert.equal(startup.dir, startupDir)
 startup.create(id, cmd, [testFile], log)
@@ -38,5 +43,16 @@ setTimeout(() => {
 
   startup.remove(id)
   assert(!fs.existsSync(startupFile))
-  console.log('OK')
+  console.log('OK 1/2')
+  clean()
+
+  // Test without log
+  startup.create(id, cmd, [testFile])
+  setTimeout(() => {
+    assert(fs.existsSync(startupFile))
+    assert(fs.existsSync(testFile))
+    assert(!fs.existsSync(log))
+    console.log('OK 2/2')
+    clean()
+  }, 100)
 }, 100)

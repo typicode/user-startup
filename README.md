@@ -31,13 +31,18 @@ Note: you should check that root isn't running this code to avoid startup script
 
 ## API
 
-`add(id, cmd[, args][, out])`
+`add(id, cmd[, args[, out]])`
+
+* `id <String>` id
+* `cmd <String>` command
+* `args <Array>` optional list of string arguments
+* `out <String>` optional path to output file (directory needs to exist before)
 
 Creates startup script.
 
-`create(id, cmd[, args][, out])`
+`create(id, cmd[, args[, out]])`
 
-Creates a startup script and spawns process.
+Creates a startup script __and__ spawns process.
 
 `remove(id)`
 
