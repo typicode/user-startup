@@ -13,7 +13,7 @@ npm install user-startup --save
 
 ## Usage
 
-Create a new instance
+Create a new instance.
 
 ```js
 const Startup = require('user-startup')
@@ -26,7 +26,7 @@ try {
 }
 ```
 
-Add startup script (to spawn process at the same time, use `create`).
+Add startup script but doesn't spawn process. Use `create` to create startup file and process at the same time.
 
 ```js
 startup.create(
@@ -37,7 +37,7 @@ startup.create(
 )
 ```
 
-Remove startup script
+Remove startup script.
 
 ```js
 startup.remove('my-script')
