@@ -1,6 +1,6 @@
 {
   "name": "user-startup",
-  "version": "0.2.2",
+  "version": "0.3.0",
   "description": "Automatically run commands when the user logs in (cross-platform)",
   "main": "lib/index.js",
   "scripts": {
