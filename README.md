@@ -11,25 +11,46 @@
 npm install user-startup --save
 ```
 
-## Example
+## Usage
 
-```javascript
-const startup = require('user-startup')
+Create a new instance
 
-const nodePath = process.execPath
-const args = ['/some/path/app.js']
-const out = '/some/path/out.log'
+```js
+const Startup = require('user-startup')
+let startup
 
-// Creates startup script and spawns process
-startup.create('my-script', nodePath, args, out)
+try {
+  startup = Startup()
+} catch (err) {
+  // Unsupported platform
+}
+```
 
-// Removes startup script
+Add startup script (to spawn process at the same time, use `create`).
+
+```js
+startup.create(
+  'my-script', // id
+  process.execPath, // cmd
+  ['/some/path/app.js'], // args
+  '/some/path/out.log' // out
+)
+```
+
+Remove startup script
+
+```js
 startup.remove('my-script')
 ```
 
 Note: you should check that root isn't running this code to avoid startup scripts being created in root's home directory. Use [sudo-block](https://github.com/sindresorhus/sudo-block) or [is-root](https://github.com/sindresorhus/is-root).
 
 ## API
+
+__Startup()__
+
+Creates a new instance.
+Throws an error if platform isn't OS X, Linux or Windows.
 
 __add(id, cmd[, args[, out]])__
 

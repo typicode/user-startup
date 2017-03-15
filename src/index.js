@@ -1,5 +1,12 @@
 const os = require('os')
-const platform = os.platform()
-const startup = require(`./startup/${platform}.js`)
 
-module.exports = startup
+module.exports = function Startup () {
+  const platform = os.platform()
+  const supported = ['darwin', 'linux', 'win32']
+
+  if (supported.indexOf(platform) > -1) {
+    return require(`./startup/${platform}.js`)
+  }
+
+  throw new Error(`Unsupported platform ${platform}`)
+}

@@ -2,8 +2,8 @@ const os = require('os')
 const fs = require('fs')
 const untildify = require('untildify')
 const assert = require('assert')
-const startup = require('../src')
-
+const Startup = require('../src')
+const startup = Startup()
 
 if (os.platform() === 'win32') process.exit()
 
@@ -56,3 +56,6 @@ setTimeout(() => {
     clean()
   }, 100)
 }, 100)
+
+os.platform = () => {}
+assert.throws(Startup)
