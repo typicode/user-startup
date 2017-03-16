@@ -49,7 +49,7 @@ function add (name, cmd, args = [], out) {
   const data = [
     '[Desktop Entry]',
     'Type=Application',
-    'Vestion=1.0',
+    'Version=1.0',
     `Name=${name}`,
     `Comment=${name} startup script`,
     `Exec=${command}`,
