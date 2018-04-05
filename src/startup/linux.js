@@ -59,6 +59,7 @@ function add (name, cmd, args = [], out) {
 
   mkdirp.sync(dir)
   fs.writeFileSync(file, data)
+  fs.chmodSync('test', '+x');
   return file
 }
 
